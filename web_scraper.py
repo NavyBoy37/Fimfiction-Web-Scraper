@@ -37,11 +37,6 @@ class Story:
         return matching_page_details  # Return the list of matching PageDetails objects
             
         
-
-
-
-
-
 #Random Initialized Variables
 y=0
 x=0
@@ -55,7 +50,7 @@ error_code = 200
 storynum=460011
 chapnum=1
 chapTotal=0
-count_to_scrape = 1
+count_to_scrape = 0
 my_story = Story(storynum=storynum) 
 
 
@@ -78,24 +73,29 @@ while x<=count_to_scrape:
             storytitles = storytitles.get_text()
             storytexts = storytexts.get_text()
             
-            
-            
             my_story.add_page_details(storytitles,storytexts,chapnum,storynum)
             
 
-             #testing
+             #testing.  This is where print command was
         
-        chapnum = chapnum + 1
-
+    chapnum = chapnum + 1
+    page_details = my_story.take(storynum) #=list of page_details objects
+    with open(what_to_open?,"w+",encoding='utf-8') as file:
+    #for obj in page_details:
+        for obj in page_details:
+            single_story = "Title:    \n"+ obj.title +"\n Chapter:  \n"+ str(obj.chapter) + "\n" + obj.text
+            file.writelines(single_story)
 
     x=x+1
     storynum=storynum+1
 
 
-page_details = my_story.take(460011)
-File_object = open(r"C:\Users\joshu\Desktop\GitHub\Stories\Stories.txt","w+")
+"""page_details = my_story.take(460011) #=list of page_details objects
+File_object = open(r"C:\Users\joshu\Desktop\GitHub\Stories\Stories.txt","w+",encoding='utf-8')
 #for obj in page_details:
-File_object.writelines(page_details.title,page_details.text,page_details.chapter,page_details.storyNumber)
+for obj in page_details:
+    single_story = "Title:    \n"+ obj.title +"\n Chapter:  \n"+ str(obj.chapter) + "\n" + obj.text
+    File_object.writelines(single_story)"""
     
 
 
