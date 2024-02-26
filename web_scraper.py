@@ -88,7 +88,7 @@ while x<=count_to_scrape:
     matching_details = my_story.take(storynum) # =list of page_details objects
     
     if story_code == 200:
-        with open(f"C:\\Users\\joshu\\Desktop\\GitHub\\Stories\\{str(storynum)}.txt","w+") as file:
+        with open(f"C:\\Users\\joshu\\Desktop\\GitHub\\Stories\\{str(storynum)}.txt","w+", encoding="utf-8") as file:
             for obj in matching_details:
                 single_story = "\n"+"\n"+"Title:    "+ obj.title +"\n Chapter:  "+ str(obj.chapter) + "\n" + obj.text
                 file.writelines(single_story)
