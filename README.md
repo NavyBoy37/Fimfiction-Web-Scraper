@@ -10,4 +10,6 @@ https://www.fimfiction.net/story/482117/3/
 2. Make it search through each chapter of a story and cancel when it can't find useful information on the chapter after the last that was written
 3. Once done with story, bump up the number of the story and repeat the chapter search loop.
 
-Next up 
+Next up https://www.fimfiction.net/story/25148/2/all-american-girl/chapter-one-equine-american
+with kimi no sain  
+:D
