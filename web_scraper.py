@@ -2,9 +2,10 @@ from bs4 import BeautifulSoup
 import requests
 import time
 import random
+from random_unicode_emoji import random_emoji
 
 print("boop***********************************************************************************************************************************")
-print("\n")
+print("\n"+ random_emoji()[0])
 
 
 class Story:
@@ -43,30 +44,33 @@ x=0
 page_array=[]
 story_array=[]
 soup=0
-error_code = 200
+
 
 
 #starting place for the webscraper/controlling variables
-storynum=460011
+storynum=25125
 chapnum=1
 chapTotal=0
-count_to_scrape = 0
+count_to_scrape = 500
 my_story = Story(storynum=storynum) 
 
 
 #the appropriate url for each story
 while x<=count_to_scrape:
+    chapter_code = 200
+    story_code = 200
     Story.storyNumber = storynum
     chapnum=1
-    while error_code == 200:
+    time.sleep(random.randint(1,3))
+    url="https://www.fimfiction.net/story/"+str(storynum)+"/"+str(chapnum)+"/"
+    page_to_scrape=requests.get(url)
+    story_code=page_to_scrape.status_code
+    while chapter_code == 200:
+        time.sleep(random.randint(1,3))
         
-        url="https://www.fimfiction.net/story/"+str(storynum)+"/"+str(chapnum)+"/"
-    #The bulk of the code that extracts Title and Story Text
-    #200 is good status code, 404 means it doesn't exist
-        page_to_scrape=requests.get(url)
-        error_code = page_to_scrape.status_code
-        if error_code == 200:
-            time.sleep(random.randint(0,3))
+        chapter_code = page_to_scrape.status_code
+        if chapter_code == 200:
+            print(f"getting chapter {str(chapnum)} of story number {str(storynum)}")
             soup=BeautifulSoup(page_to_scrape.text, "html.parser")
             storytitles=soup.find("title")
             storytexts=soup.find("div",attrs={"class":"bbcode"}) 
@@ -74,28 +78,26 @@ while x<=count_to_scrape:
             storytexts = storytexts.get_text()
             
             my_story.add_page_details(storytitles,storytexts,chapnum,storynum)
-            
+        chapnum = chapnum + 1      
+        url="https://www.fimfiction.net/story/"+str(storynum)+"/"+str(chapnum)+"/"
+        # The bulk of the code that extracts Title and Story Text
+        # 200 is good status code, 404 means it doesn't exist
+        page_to_scrape=requests.get(url)
+          
 
-             #testing.  This is where print command was
-        
-    chapnum = chapnum + 1
-    page_details = my_story.take(storynum) #=list of page_details objects
-    with open(what_to_open?,"w+",encoding='utf-8') as file:
-    #for obj in page_details:
-        for obj in page_details:
-            single_story = "Title:    \n"+ obj.title +"\n Chapter:  \n"+ str(obj.chapter) + "\n" + obj.text
-            file.writelines(single_story)
+    matching_details = my_story.take(storynum) # =list of page_details objects
+    
+    if story_code == 200:
+        with open(f"C:\\Users\\joshu\\Desktop\\GitHub\\Stories\\{str(storynum)}.txt","w+") as file:
+            for obj in matching_details:
+                single_story = "\n"+"\n"+"Title:    "+ obj.title +"\n Chapter:  "+ str(obj.chapter) + "\n" + obj.text
+                file.writelines(single_story)
 
     x=x+1
     storynum=storynum+1
 
 
-"""page_details = my_story.take(460011) #=list of page_details objects
-File_object = open(r"C:\Users\joshu\Desktop\GitHub\Stories\Stories.txt","w+",encoding='utf-8')
-#for obj in page_details:
-for obj in page_details:
-    single_story = "Title:    \n"+ obj.title +"\n Chapter:  \n"+ str(obj.chapter) + "\n" + obj.text
-    File_object.writelines(single_story)"""
+
     
 
 
@@ -112,7 +114,7 @@ for obj in page_details:
 
     
 
-#base scraping code is below
+# base scraping code is below
 """ 
     page_to_scrape=requests.get("https://www.fimfiction.net/story/552147/1/a-makeover-for-algernon-why-all-my-hamsters-are-goths/grownups-are-stupid")
     soup=BeautifulSoup(page_to_scrape.text, "html.parser")
