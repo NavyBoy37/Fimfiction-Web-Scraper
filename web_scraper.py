@@ -3,6 +3,8 @@ import requests
 import time
 import random
 from random_unicode_emoji import random_emoji
+from selenium import webdriver
+from selenium.webdriver.common.by import By
 
 print("boop***********************************************************************************************************************************")
 print("\n"+ random_emoji()[0])
@@ -45,25 +47,30 @@ page_array=[]
 story_array=[]
 soup=0
 
+# driver=webdriver.Chrome()
+# driver.get("https://www.fimfiction.net/manage/local-settings")
+# checkbox = driver.find_element(By.NAME,"view_mature")
+# checkbox.click()
+
 
 
 #starting place for the webscraper/controlling variables
-storynum=25125
+storynum=25199
 chapnum=1
 chapTotal=0
 count_to_scrape = 500
 my_story = Story(storynum=storynum) 
-
+cookie = {'view_mature': "true"}
 
 #the appropriate url for each story
 while x<=count_to_scrape:
     chapter_code = 200
-    story_code = 200
-    Story.storyNumber = storynum
+    story_code = 200 #potentially add selenium clicking portion right here with an if statement
+    Story.storyNumber = storynum #Then if the thing pops up click and load the webpage like normal and it might recognize the mature access allowed
     chapnum=1
     time.sleep(random.randint(1,3))
     url="https://www.fimfiction.net/story/"+str(storynum)+"/"+str(chapnum)+"/"
-    page_to_scrape=requests.get(url)
+    page_to_scrape=requests.get(url, cookies=cookie)
     story_code=page_to_scrape.status_code
     while chapter_code == 200:
         time.sleep(random.randint(1,3))
@@ -82,7 +89,7 @@ while x<=count_to_scrape:
         url="https://www.fimfiction.net/story/"+str(storynum)+"/"+str(chapnum)+"/"
         # The bulk of the code that extracts Title and Story Text
         # 200 is good status code, 404 means it doesn't exist
-        page_to_scrape=requests.get(url)
+        page_to_scrape=requests.get(url, cookies=cookie)
           
 
     matching_details = my_story.take(storynum) # =list of page_details objects
@@ -96,7 +103,7 @@ while x<=count_to_scrape:
     x=x+1
     storynum=storynum+1
 
-
+# driver.quit()
 
     
 
