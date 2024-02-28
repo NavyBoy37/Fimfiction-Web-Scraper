@@ -1,5 +1,4 @@
 
-
 https://www.fimfiction.net/story/482117/3/
 
 - The first set of numbers represents the story
@@ -11,7 +10,7 @@ https://www.fimfiction.net/story/482117/3/
 3. Once done with story, bump up the number of the story and repeat the chapter search loop.
 
 Next up https://www.fimfiction.net/story/25148/2/all-american-girl/chapter-one-equine-american
-with kimi no sain  
+with kimi no sain
 :D
 
 BUGS:  Scraper doesn't know how to get past age restricted filters.  Even if it clicks through it would be on the wrong page to start.
