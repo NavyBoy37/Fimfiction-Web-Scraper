@@ -49,7 +49,7 @@ soup = 0
 cookie = {"view_mature": "true"}
 
 """Starting place for the webscraper/controlling variables"""
-storynum = 1
+storynum = 574794
 chapnum = 1
 count_to_scrape = 25200
 my_story = Story(storynum=storynum)
